@@ -1,81 +1,63 @@
-# 🛒 Simple eCommerce Shopping Cart (C++)
+# SOLID Principles Demonstrated in C++ Projects
 
-This project demonstrates a basic eCommerce shopping cart system implemented in C++, following the **Single Responsibility Principle (SRP)** — one of the SOLID principles of object-oriented design.
+This repository contains multiple C++ projects that demonstrate key SOLID principles of object-oriented design. Below is an explanation of how each project implements the principles of:
 
-## 📌 Features
-
-- Add products to a shopping cart
-- Print a simple invoice
-- Simulate saving the cart to a database
-- Clean separation of concerns using SRP
-
-## 🧱 Classes and Responsibilities
-
-| Class                  | Responsibility                                  |
-|------------------------|-------------------------------------------------|
-| `Product`              | Represents a product with name and price        |
-| `ShoppingCart`         | Manages products and calculates total           |
-| `ShoppingCartPrinter`  | Prints the cart invoice                         |
-| `ShoppingCartStorage`  | Simulates saving the cart to a database         |
-
-Each class has **only one reason to change**, adhering to SRP.
-
-## 🛠️ How to Compile and Run
-
-### Prerequisites:
-- A C++ compiler (e.g., `g++`)
-
-### Compile:
-```bash
-g++ -o shopping_cart main.cpp
-
-
-# 🛒 eCommerce Shopping Cart (C++) — OCP-Compliant Design
-
-This project showcases a simple C++ implementation of an eCommerce **shopping cart system**, with a clean design that follows the **Open/Closed Principle (OCP)** — one of the core **SOLID principles** of object-oriented design.
+- **Liskov Substitution Principle (LSP)**
+- **Single Responsibility Principle (SRP)**
+- **Open/Closed Principle (OCP)**
 
 ---
 
-## ✅ What’s Implemented?
+## 1. Bank Account Management System — Liskov Substitution Principle (LSP)
 
-- Add products to a shopping cart
-- Calculate total cart price
-- Print a user-friendly invoice
-- Save the cart to different storage types (SQL, MongoDB, File)
-- Use of abstract class (`Persistence`) to demonstrate OCP
+**What is LSP?**  
+Subtypes must be substitutable for their base types without altering program correctness.
 
----
-
-## 📚 SOLID Principle Focus: Open/Closed Principle (OCP)
-
-> **Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.**
-
-### ✅ How This Code Follows OCP:
-- The `Persistence` class is an **abstract base class** with a `save()` function.
-- Concrete classes like `SQLPersistence`, `MongoPersistence`, and `FilePersistence` **extend** behavior **without modifying existing code**.
-- You can add new storage types (e.g., `CloudPersistence`, `APIPersistence`) by simply creating a new class that inherits from `Persistence`.
+**How this project demonstrates LSP:**  
+- Abstract base classes (`DepositOnlyAccount`, `WithdrawableAccount`) define clear interfaces for different account capabilities.
+- Derived classes (`SavingAccount`, `CurrentAccount`, `FixedTermAccount`) implement these interfaces correctly according to their allowed operations.
+- The `BankClient` uses base class pointers, enabling seamless substitution of any derived account type without breaking functionality.
+- Interface segregation ensures accounts that do not support withdrawal (e.g., `FixedTermAccount`) do not expose a withdrawal interface, preventing misuse and upholding LSP.
 
 ---
 
-## 🧱 Class Responsibilities
+## 2. Shopping Cart System — Single Responsibility Principle (SRP)
 
-| Class                 | Responsibility                              |
-|-----------------------|---------------------------------------------|
-| `Product`             | Represents a product with name and price    |
-| `ShoppingCart`        | Manages products and calculates total       |
-| `ShoppingCartPrinter` | Prints invoice for the cart                 |
-| `Persistence`         | Abstract class defining a save interface    |
-| `SQLPersistence`      | Saves the cart to an SQL database           |
-| `MongoPersistence`    | Saves the cart to MongoDB                   |
-| `FilePersistence`     | Saves the cart to a file                    |
+**What is SRP?**  
+A class should have only one reason to change — it should have a single responsibility.
+
+**How this project demonstrates SRP:**  
+- The system separates concerns into distinct classes:
+  - `Product`: Manages product data.
+  - `ShoppingCart`: Manages cart contents and calculates totals.
+  - `ShoppingCartPrinter`: Responsible solely for printing invoices.
+  - `ShoppingCartStorage`: Handles saving the cart data to a database (simulated).
+- Each class handles one specific responsibility, ensuring changes to one aspect (e.g., printing or storage) do not affect others, improving maintainability.
 
 ---
 
-## 🛠️ How to Compile and Run
+## 3. Shopping Cart System — Open/Closed Principle (OCP)
 
-### 🔧 Requirements:
-- C++ compiler (e.g., `g++`)
+**What is OCP?**  
+Software entities should be open for extension but closed for modification.
 
-### 🧪 Compile:
-```bash
-g++ -o shopping_cart_ocp main.cpp
+**How this project demonstrates OCP:**  
+- Defines an abstract base class `Persistence` with a `save()` interface.
+- Concrete implementations (`SQLPersistence`, `MongoPersistence`, `FilePersistence`) extend the base class to add new storage behaviors without modifying existing code.
+- This design allows new storage types (e.g., cloud storage) to be added by creating new classes, keeping existing classes unchanged, and preserving system stability.
+
+---
+
+## Summary Table
+
+| Project                     | SOLID Principle                  | Key Implementation Details                                   |
+|-----------------------------|---------------------------------|--------------------------------------------------------------|
+| Bank Account Management      | Liskov Substitution Principle   | Interface segregation and substitutable account types        |
+| Shopping Cart (SRP)          | Single Responsibility Principle | Separate classes for product, cart management, printing, and storage |
+| Shopping Cart (OCP)          | Open/Closed Principle            | Abstract persistence interface with extendable concrete classes |
+
+---
+
+## License
+
+This repository is licensed under the MIT License.
